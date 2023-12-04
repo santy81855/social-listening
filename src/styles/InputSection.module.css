@@ -1,0 +1,160 @@
+.sectionContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    width: 100%;
+    gap: var(--gap-medium);
+    padding-block-end: var(--padding-block-medium);
+    border-bottom: 2px solid rgb(162, 208, 226);
+    padding-block-start: var(--padding-block-large);
+    padding-inline: var(--padding-inline-medium);
+}
+
+.borderRight {
+    border-right: 2px solid rgb(162, 208, 226);
+}
+
+.paddingLeft {
+    padding-inline-start: var(--padding-inline-medium);
+}
+
+.inputTitle {
+    width: 100%;
+    font-size: var(--font-size-large);
+    font-weight: bold;
+}
+
+.inputSubtitle {
+    font-size: var(--font-size-medium);
+    width: 100%;
+}
+
+.inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: var(--gap-small);
+}
+
+.textInput {
+    flex-grow: 1;
+    padding-block: var(--padding-block-small);
+    padding-inline: var(--padding-inline-small);
+    outline: none;
+    border: 1px solid black;
+    border-radius: var(--border-radius);
+}
+
+.submitButton {
+    padding-block: var(--padding-block-small);
+    padding-inline: var(--padding-inline-small);
+    border: 1px solid black;
+    background-color: lightblue;
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+}
+
+.dateContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-small);
+    width: 100%;
+}
+
+.dateItem {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.date {
+    padding-block: var(--padding-block-small);
+    padding-inline: var(--padding-inline-small);
+    outline: none;
+    border-radius: var(--border-radius);
+    border: 1px solid black;
+}
+
+.dateItem p {
+    font-size: var(--font-size-small);
+    width: 100%;
+}
+
+.checkboxContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--gap-medium);
+    width: 100%;
+}
+
+.checkboxItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-small);
+}
+
+.checkboxItem p {
+    font-size: var(--font-size-small);
+}
+
+.youtubeIcon {
+    color: red;
+}
+
+.twitterIcon {
+    color: rgb(52, 113, 226);
+}
+
+.facebookIcon {
+    color: rgb(43, 65, 192);
+}
+
+.socialNameContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
+
+@media screen and (max-width: 850px) {
+    .sectionContainer {
+        flex-direction: column;
+    }
+
+    .borderRight {
+        border-right: none;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .inputContainer {
+        flex-direction: column;
+    }
+    .textInput {
+        width: 100%;
+    }
+    .submitButton {
+        width: 100%;
+    }
+}
