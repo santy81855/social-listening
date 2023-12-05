@@ -9,7 +9,7 @@ export async function GET(request, res) {
     const executionArn = cache.get("executionArn");
 
     if (!executionArn) {
-        return NextResponse.error(new Error("No executionArn"));
+        return NextResponse.json({ error: "No executionArn" });
     }
     // uuse the executionArn to retrieve the output
     const executionOutput = await axios.get(`${process.env.NEXT_PUBLIC_EXECUTION}/sentiments?executionArn=${executionArn}`);
@@ -17,13 +17,13 @@ export async function GET(request, res) {
     // if the execution fails, return an error
     if (!executionOutput) {
         cache.del(executionArn);
-        return NextResponse.error(new Error("Error generating analysis."));
+        return NextResponse.json({ error: "Error generating analysis." });
     }
 
     // if the execution completes but is not 'SUCCEEDED', return an error
     if (executionOutput && executionOutput.data.status != 'SUCCEEDED' && executionOutput.data.status != 'RUNNING') {
         cache.del(executionArn);
-        return NextResponse.error(new Error("Error: " + executionOutput.data.status));
+        return NextResponse.json({ error: executionOutput.data.status });
     }
 
     return NextResponse.json(executionOutput.data);

@@ -9,11 +9,11 @@ export async function POST(request, res) {
     const result = await axios.post(process.env.NEXT_PUBLIC_STARTEXCUTION, body);
 
     if (!result) {
-        return NextResponse.error(new Error("No response"));
+        return NextResponse.json({ error: "No Response." });
     }
 
     if (!result.data.executionArn) {
-        return NextResponse.error(new Error("No executionArn"));
+        return NextResponse.json({ error: "No executionArn." });
     }
     // store the executionArn
     const executionArn = result.data.executionArn;
