@@ -1,61 +1,69 @@
 'use client';
 import styles from '../styles/InputSection.module.css';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAppContext } from '../app/providers';
 import axios from 'axios';
+import { useRouter, useSearchParams } from "next/navigation";
 
-const InputSection = () => {
+const InputSection = ({ userInput }) => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
     const { appState, setAppState } = useAppContext();
-    const [hashtags, setHashtags] = useState("");
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [facebook, setFacebook] = useState(false);
-    const [twitter, setTwitter] = useState(false);
-    const [youtube, setYoutube] = useState(false);
+    // at initial load, set the url to the default values if they are not already set
+    useEffect(() => {
+        const hashtags = searchParams.get('hashtags') || userInput.hashtags;
+        const startDate = searchParams.get('startDate') || userInput.startDate;
+        const endDate = searchParams.get('endDate') || userInput.endDate;
+        const facebook = searchParams.get('facebook') || userInput.facebook;
+        const twitter = searchParams.get('twitter') || userInput.twitter;
+        const youtube = searchParams.get('youtube') || userInput.youtube;
+        // if any of the parameters are null, set them to the default values
+        if (searchParams.get('hashtags') == null || searchParams.get('startDate') == null || searchParams.get('endDate') == null || searchParams.get('facebook') == null || searchParams.get('twitter') == null || searchParams.get('youtube') == null) {
+            router.replace(`?hashtags=${hashtags}&startDate=${startDate}&endDate=${endDate}&facebook=${facebook}&twitter=${twitter}&youtube=${youtube}`)
+            // update the checkboxes to be the same as the url
+            const facebookCheckbox = document.getElementById('facebookCheckbox');
+            const twitterCheckbox = document.getElementById('twitterCheckbox');
+            const youtubeCheckbox = document.getElementById('youtubeCheckbox');
+            facebookCheckbox.checked = JSON.parse(facebook);
+            twitterCheckbox.checked = JSON.parse(twitter);
+            youtubeCheckbox.checked = JSON.parse(youtube);
+        }
+    }, []);
 
-    async function test(event) {
-        event.preventDefault();
-        console.log(appState.executionArn);
-        axios.get(`/api/check-results?executionArn=${appState.executionArn}`)
-            .then((response) => {
-                console.log("GET RESPONSE: ", response);
-                if (response.data.status == 'SUCCEEDED') {
-                    setAppState({ ...appState, output: response.data });
+    async function checkResults(executionArn) {
+        // poll the check-results api every 10 seconds until we get a result
+        let interval = setInterval(() => {
+            axios.get(`/api/check-results?executionArn=${executionArn}`)
+                .then((response) => {
+                    //console.log(response);
+                    if (response.data.status == 'SUCCEEDED') {
+                        setAppState({ ...appState, output: response.data });
+                        // Clear interval when SUCCEEDED
+                        clearInterval(interval);
+                    }
                 }
-                // send request to start execution
-                //process.env.NEXT_PUBLIC_EXECUTION
-                //setDate({ ...date, executionArn: response.data.executionArn });
-            }
-            ).catch((error) => { console.log(error) });
+                ).catch((error) => { console.log(error) });
+        }, 10000);
     }
 
     async function onSubmit(event) {
         event.preventDefault();
-
-        console.log('Hashtags: ' + hashtags);
-        console.log('Start date: ' + startDate);
-        console.log('End date: ' + endDate);
-        console.log('Facebook: ' + facebook);
-        console.log('Twitter: ' + twitter);
-        console.log('Youtube: ' + youtube);
-
         var socialNetworks = [];
-        if (facebook) {
+        if (JSON.parse(searchParams.get('facebook'))) {
             socialNetworks.push('facebook');
         }
-        if (twitter) {
+        if (JSON.parse(searchParams.get('twitter'))) {
             socialNetworks.push('twitter');
         }
-        if (youtube) {
+        if (JSON.parse(searchParams.get('youtube'))) {
             socialNetworks.push('youtube');
         }
-
         let body = {
             "input": {
-                "hashtags": hashtags.split(','),
+                "hashtags": searchParams.get("hashtags").split(','),
                 "filters": {
-                    "startDate": startDate,
-                    "endDate": endDate,
+                    "startDate": searchParams.get("startDate"),
+                    "endDate": searchParams.get("endDate"),
                     "socialNetworks": socialNetworks,
                 },
             },
@@ -63,29 +71,19 @@ const InputSection = () => {
         };
         axios.post('/api/submit', body)
             .then((response) => {
-                console.log("POST RESPONSE: ", response);
-                setAppState({ ...appState, executionArn: response.data.executionArn });
-                // send request to start execution
-                //process.env.NEXT_PUBLIC_EXECUTION
-                //setDate({ ...date, executionArn: response.data.executionArn });
+                //console.log("POST RESPONSE: ", response);
+                // clear the current output
+                setAppState({ ...appState, output: {}, executionArn: response.data.executionArn });
+                // execute the check-results api
+                checkResults(response.data.executionArn);
             }
             ).catch((error) => { console.log(error) });
-        /*const response = await fetch('/api/submit', {
-            method: 'POST',
-            body: formData,
-        })
-
-        // Handle response if necessary
-        const data = await response.json()
-        // ...
-        */
     }
 
     return (
         <form className={styles.sectionContainer} onSubmit={onSubmit}>
             <section className={`${styles.section} ${styles.borderRight}`}>
-                <p className={styles.inputTitle}
-                    onClick={test}>
+                <p className={styles.inputTitle}>
                     Ingrese los hashtags
                 </p>
                 <p className={styles.inputSubtitle}>
@@ -97,9 +95,8 @@ const InputSection = () => {
                         type="text"
                         name="hashtags"
                         placeholder="e.g. Medellin, #Medellin, Hilton"
-                        value={hashtags}
                         onChange={(event) => {
-                            setHashtags(event.target.value);
+                            router.replace(`?hashtags=${event.target.value}&startDate=${searchParams.get('startDate')}&endDate=${searchParams.get("endDate")}&facebook=${searchParams.get("facebook")}&twitter=${searchParams.get("twitter")}&youtube=${searchParams.get("youtube")}`)
                         }}
                         required
                     />
@@ -116,9 +113,9 @@ const InputSection = () => {
                     <section className={styles.dateItem}>
                         <p>Fecha Inicial</p>
                         <input type="date" name="start-date" className={styles.date}
-                            value={startDate}
+                            value={searchParams.get('startDate')}
                             onChange={(event) => {
-                                setStartDate(event.target.value);
+                                router.replace(`?hashtags=${searchParams.get("hashtags")}&startDate=${event.target.value}&endDate=${searchParams.get("endDate")}&facebook=${searchParams.get("facebook")}&twitter=${searchParams.get("twitter")}&youtube=${searchParams.get("youtube")}`)
                             }}
                             required
                         />
@@ -126,9 +123,9 @@ const InputSection = () => {
                     <section className={styles.dateItem}>
                         <p>Fecha Inicial</p>
                         <input type="date" name="end-date" className={styles.date}
-                            value={endDate}
+                            value={searchParams.get('endDate')}
                             onChange={(event) => {
-                                setEndDate(event.target.value);
+                                router.replace(`?hashtags=${searchParams.get("hashtags")}&startDate=${searchParams.get('startDate')}&endDate=${event.target.value}&facebook=${searchParams.get("facebook")}&twitter=${searchParams.get("twitter")}&youtube=${searchParams.get("youtube")}`)
                             }}
                             required
                         />
@@ -136,9 +133,11 @@ const InputSection = () => {
                 </section>
                 <section className={styles.checkboxContainer}>
                     <section className={styles.checkboxItem}>
-                        <input type="checkbox" name="facebook"
+                        <input type="checkbox" name="facebook" id="facebookCheckbox"
+                            defaultChecked={JSON.parse(searchParams.get('facebook'))}
                             onChange={(event) => {
-                                setFacebook(event.target.checked);
+                                event.target.value = !event.target.checked;
+                                router.replace(`?hashtags=${searchParams.get("hashtags")}&startDate=${searchParams.get('startDate')}&endDate=${searchParams.get("endDate")}&facebook=${event.target.checked}&twitter=${searchParams.get("twitter")}&youtube=${searchParams.get("youtube")}`)
                             }}
                         />
                         <div className={styles.socialNameContainer}>
@@ -147,9 +146,11 @@ const InputSection = () => {
                         </div>
                     </section>
                     <section className={styles.checkboxItem}>
-                        <input type="checkbox" name="twitter"
+                        <input type="checkbox" name="twitter" id="twitterCheckbox"
+                            defaultChecked={JSON.parse(searchParams.get('twitter'))}
                             onChange={(event) => {
-                                setTwitter(event.target.checked);
+                                event.target.value = !event.target.checked;
+                                router.replace(`?hashtags=${searchParams.get("hashtags")}&startDate=${searchParams.get('startDate')}&endDate=${searchParams.get("endDate")}&facebook=${searchParams.get("facebook")}&twitter=${event.target.checked}&youtube=${searchParams.get("youtube")}`)
                             }}
                         />
                         <div className={styles.socialNameContainer}>
@@ -158,9 +159,11 @@ const InputSection = () => {
                         </div>
                     </section>
                     <section className={styles.checkboxItem}>
-                        <input type="checkbox" name="youtube"
+                        <input type="checkbox" name="youtube" id="youtubeCheckbox"
+                            defaultChecked={JSON.parse(searchParams.get('youtube'))}
                             onChange={(event) => {
-                                setYoutube(event.target.checked);
+                                event.target.value = !event.target.checked;
+                                router.replace(`?hashtags=${searchParams.get("hashtags")}&startDate=${searchParams.get('startDate')}&endDate=${searchParams.get("endDate")}&facebook=${searchParams.get("facebook")}&twitter=${searchParams.get("twitter")}&youtube=${event.target.checked}`)
                             }}
                         />
                         <div className={styles.socialNameContainer}>
@@ -170,7 +173,7 @@ const InputSection = () => {
                     </section>
                 </section>
             </section>
-        </form>
+        </form >
     );
 };
 

@@ -25,6 +25,6 @@ export async function POST(request, res) {
     const cipher = crypto.createCipher('aes-256-cbc', key);
     let encryptedText = cipher.update(executionArn, 'utf8', 'hex');
     encryptedText += cipher.final('hex');
-
+    // return the encrypted executionArn
     return NextResponse.json({ success: true, executionArn: encryptedText });
 }
