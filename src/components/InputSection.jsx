@@ -95,6 +95,7 @@ const InputSection = ({ userInput }) => {
                         type="text"
                         name="hashtags"
                         placeholder="e.g. Medellin, #Medellin, Hilton"
+                        value={searchParams.get('hashtags')}
                         onChange={(event) => {
                             router.replace(`?hashtags=${event.target.value}&startDate=${searchParams.get('startDate')}&endDate=${searchParams.get("endDate")}&facebook=${searchParams.get("facebook")}&twitter=${searchParams.get("twitter")}&youtube=${searchParams.get("youtube")}`)
                         }}
