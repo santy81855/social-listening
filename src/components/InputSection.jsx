@@ -13,6 +13,20 @@ const InputSection = () => {
     const [twitter, setTwitter] = useState(false);
     const [youtube, setYoutube] = useState(false);
 
+    async function test(event) {
+        event.preventDefault();
+        axios.get('/api/check-results').then((response) => {
+            console.log("GET RESPONSE: ", response);
+            if (response.data.status == 'SUCCEEDED') {
+                setAppState({ ...appState, output: response.data });
+            }
+            // send request to start execution
+            //process.env.NEXT_PUBLIC_EXECUTION
+            //setDate({ ...date, executionArn: response.data.executionArn });
+        }
+        ).catch((error) => { console.log(error) });
+    }
+
     async function onSubmit(event) {
         event.preventDefault();
 
@@ -47,8 +61,8 @@ const InputSection = () => {
         };
         axios.post('/api/submit', body)
             .then((response) => {
-                console.log("POST RESPONSE: ", response.data);
-                setAppState({ ...appState, output: response.data });
+                console.log("POST RESPONSE: ", response);
+                //setAppState({ ...appState, output: response.data });
                 // send request to start execution
                 //process.env.NEXT_PUBLIC_EXECUTION
                 //setDate({ ...date, executionArn: response.data.executionArn });
@@ -68,7 +82,8 @@ const InputSection = () => {
     return (
         <form className={styles.sectionContainer} onSubmit={onSubmit}>
             <section className={`${styles.section} ${styles.borderRight}`}>
-                <p className={styles.inputTitle}>
+                <p className={styles.inputTitle}
+                    onClick={test}>
                     Ingrese los hashtags
                 </p>
                 <p className={styles.inputSubtitle}>
