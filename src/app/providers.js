@@ -5,6 +5,7 @@ const AppContext = createContext();
 
 export function Providers({ children }) {
     const [appState, setAppState] = useState({
+        executionArn: {},
         output: {},
     });
 

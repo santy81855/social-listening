@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { NextResponse } from "next/server";
 
-import cache from 'memory-cache';
+import crypto from 'crypto';
 
 export async function POST(request, res) {
     const body = await request.json();
@@ -18,28 +18,13 @@ export async function POST(request, res) {
     // store the executionArn
     const executionArn = result.data.executionArn;
 
-    // Store the executionArn in cache (can use a more persistent storage for production)
-    cache.put("executionArn", executionArn, 24 * 60 * 60 * 1000); // 24 hours expiration
+    // encrypt the executionArn
+    const key = "AGhNEBNTrw6sKWZkUEqw5phSN98+oaTqmFdQNDghQwf6WifEaSkNl+PfZMTb2aCasWl+nVgLKrnbCqUPGnUYDpyHaquL7u596Gb++QeKudKXqukDBL9LZ/zwZ7+d9gvdgogRWAbh0ImE/KlpefaNqGE5YGrpRsNvpWR9kW5Xhc56AcN6nGUTg0wbeWCL7hEnOp1LgBtBo9PpQc5mrUQbHK/FeIlOs5cI1sQWVOGFFyrnFtKnJ/3ycDNZxnVRzwo0hKuLYWnanHP+vGqlxKD84nqJ4ozSouqDOeZVW63NnGvaTkdPVYLL8HvT521Q7RqJTofnQgL0JVLOs9so6AemCLLlUYZmBZN8bIBvAlDSLNg="
 
-    // // create a loop that checks the status of the execution every 10 seconds until it is complete or fails
-    // var status = 'RUNNING';
-    // var executionOutput = {
-    //     "executionArn": executionArn,
-    //     "status": status,
-    // };
+    // Create an AES cipher with the provided key
+    const cipher = crypto.createCipher('aes-256-cbc', key);
+    let encryptedText = cipher.update(executionArn, 'utf8', 'hex');
+    encryptedText += cipher.final('hex');
 
-    // // loop until the execution is complete or fails
-    // while (status == 'RUNNING') {
-    //     await new Promise(r => setTimeout(r, 10000));
-    //     executionOutput = await axios.get(`${process.env.NEXT_PUBLIC_EXECUTION}/sentiments?executionArn=${executionArn}`);
-    //     status = executionOutput.data.status;
-    // }
-
-    // // if the execution fails, return an error
-    // if (!executionOutput || status != 'SUCCEEDED') {
-    //     return NextResponse.error(new Error("Error generating analysis."));
-    // }
-
-
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, executionArn: encryptedText });
 }

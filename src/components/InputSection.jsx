@@ -15,16 +15,18 @@ const InputSection = () => {
 
     async function test(event) {
         event.preventDefault();
-        axios.get('/api/check-results').then((response) => {
-            console.log("GET RESPONSE: ", response);
-            if (response.data.status == 'SUCCEEDED') {
-                setAppState({ ...appState, output: response.data });
+        console.log(appState.executionArn);
+        axios.get(`/api/check-results?executionArn=${appState.executionArn}`)
+            .then((response) => {
+                console.log("GET RESPONSE: ", response);
+                if (response.data.status == 'SUCCEEDED') {
+                    setAppState({ ...appState, output: response.data });
+                }
+                // send request to start execution
+                //process.env.NEXT_PUBLIC_EXECUTION
+                //setDate({ ...date, executionArn: response.data.executionArn });
             }
-            // send request to start execution
-            //process.env.NEXT_PUBLIC_EXECUTION
-            //setDate({ ...date, executionArn: response.data.executionArn });
-        }
-        ).catch((error) => { console.log(error) });
+            ).catch((error) => { console.log(error) });
     }
 
     async function onSubmit(event) {
@@ -62,7 +64,7 @@ const InputSection = () => {
         axios.post('/api/submit', body)
             .then((response) => {
                 console.log("POST RESPONSE: ", response);
-                //setAppState({ ...appState, output: response.data });
+                setAppState({ ...appState, executionArn: response.data.executionArn });
                 // send request to start execution
                 //process.env.NEXT_PUBLIC_EXECUTION
                 //setDate({ ...date, executionArn: response.data.executionArn });
