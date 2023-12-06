@@ -1,14 +1,16 @@
 'use client';
 import styles from '../styles/InputSection.module.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../app/providers';
 import axios from 'axios';
 import { useRouter, useSearchParams } from "next/navigation";
+import generateReport from '../lib/GenerateReport';
 
 const InputSection = ({ userInput }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { appState, setAppState } = useAppContext();
+    const [hashtagsInput, setHashtagsInput] = useState(searchParams.get('hashtags') || userInput.hashtags);
     // at initial load, set the url to the default values if they are not already set
     useEffect(() => {
         const hashtags = searchParams.get('hashtags') || userInput.hashtags;
@@ -35,7 +37,6 @@ const InputSection = ({ userInput }) => {
         let interval = setInterval(() => {
             axios.get(`/api/check-results?executionArn=${executionArn}`)
                 .then((response) => {
-                    //console.log(response);
                     if (response.data.status == 'SUCCEEDED') {
                         setAppState({ ...appState, output: response.data });
                         // Clear interval when SUCCEEDED
@@ -48,6 +49,7 @@ const InputSection = ({ userInput }) => {
 
     async function onSubmit(event) {
         event.preventDefault();
+        router.replace(`?hashtags=${hashtagsInput}&startDate=${searchParams.get('startDate')}&endDate=${searchParams.get("endDate")}&facebook=${searchParams.get("facebook")}&twitter=${searchParams.get("twitter")}&youtube=${searchParams.get("youtube")}`)
         var socialNetworks = [];
         if (JSON.parse(searchParams.get('facebook'))) {
             socialNetworks.push('facebook');
@@ -60,7 +62,7 @@ const InputSection = ({ userInput }) => {
         }
         let body = {
             "input": {
-                "hashtags": searchParams.get("hashtags").split(','),
+                "hashtags": hashtagsInput.split(','),
                 "filters": {
                     "startDate": searchParams.get("startDate"),
                     "endDate": searchParams.get("endDate"),
@@ -80,10 +82,16 @@ const InputSection = ({ userInput }) => {
             ).catch((error) => { console.log(error) });
     }
 
+    const test = () => {
+        generateReport(appState.output);
+    };
+
     return (
         <form className={styles.sectionContainer} onSubmit={onSubmit}>
             <section className={`${styles.section} ${styles.borderRight}`}>
-                <p className={styles.inputTitle}>
+                <p className={styles.inputTitle}
+                    onClick={test}
+                >
                     Ingrese los hashtags
                 </p>
                 <p className={styles.inputSubtitle}>
@@ -92,12 +100,16 @@ const InputSection = ({ userInput }) => {
                 <section className={styles.inputContainer}>
                     <input
                         className={styles.textInput}
+                        value={hashtagsInput}
+                        id="hashtags"
                         type="text"
                         name="hashtags"
                         placeholder="e.g. Medellin, #Medellin, Hilton"
-                        value={searchParams.get('hashtags')}
                         onChange={(event) => {
-                            router.replace(`?hashtags=${event.target.value}&startDate=${searchParams.get('startDate')}&endDate=${searchParams.get("endDate")}&facebook=${searchParams.get("facebook")}&twitter=${searchParams.get("twitter")}&youtube=${searchParams.get("youtube")}`)
+                            setHashtagsInput(event.target.value);
+                            if (event.target.value === "") {
+                                router.replace(`?hashtags=${event.target.value}&startDate=${searchParams.get('startDate')}&endDate=${searchParams.get("endDate")}&facebook=${searchParams.get("facebook")}&twitter=${searchParams.get("twitter")}&youtube=${searchParams.get("youtube")}`)
+                            }
                         }}
                         required
                     />

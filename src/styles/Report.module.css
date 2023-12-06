@@ -1,0 +1,14 @@
+.sectionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-inline: var(--padding-inline-medium);
+    padding-block: var(--padding-block-medium);
+    width: 100%;
+}
+
+.sectionContainer p {
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
