@@ -1,0 +1,10 @@
+.navContainer {
+    height: var(--nav-height);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-inline: var(--padding-inline-medium);
+    border-bottom: 1px solid rgb(162, 208, 226);
+}

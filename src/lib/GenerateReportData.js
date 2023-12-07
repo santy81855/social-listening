@@ -1,6 +1,5 @@
-const generateReport = (data) => {
-    // data is a json object
-    // data.input.hashtags is an array of hashtags
+// Get the information for the report 
+const generateReportData = (data) => {
     // get how many hashtags there are
     const hashtagCount = data.input.hashtags.length;
     // get the hashtags
@@ -14,6 +13,7 @@ const generateReport = (data) => {
     // get statistics for each hashtag
     const hashtagArray = [];
     hashtags.forEach((hashtag) => {
+        console.log(hashtag);
         let stats = {};
         stats.postCount = data.output.general.sentimentAnalysis[hashtag].socialDetails.postsCount;
         stats.likes = data.output.general.sentimentAnalysis[hashtag].socialDetails.likes;
@@ -43,6 +43,7 @@ const generateReport = (data) => {
         fImageAnalysis.emotionsArray = data.output.facebook.imageAnalysis[hashtag].predominantEmotions;
         facebook.imageAnalysis = fImageAnalysis;
         let twitter = {};
+        console.log(data.output.twitter.sentimentAnalysis[hashtag]);
         twitter.postCount = data.output.twitter.sentimentAnalysis[hashtag].socialDetails.postsCount;
         twitter.retweets = data.output.twitter.sentimentAnalysis[hashtag].socialDetails.retweets;
         twitter.positive = data.output.twitter.sentimentAnalysis[hashtag].positive;
@@ -70,8 +71,8 @@ const generateReport = (data) => {
         youtube.imageAnalysis = yImageAnalysis;
         hashtagArray.push({ generalStats: stats, hashtag: hashtag, imageStats: imageStats, facebook: facebook, twitter: twitter, youtube: youtube });
     });
-
     console.log(hashtagArray);
+    return hashtagArray;
 };
 
-export default generateReport;
+export default generateReportData;
