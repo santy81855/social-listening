@@ -1,0 +1,11 @@
+.dateInput {
+    border: none;
+    font-size: var(--font-size-medium);
+    width: 100%;
+}
+
+@media (max-width: 360px) {
+    .dateInput {
+        font-size: var(--font-size-small);
+    }
+}

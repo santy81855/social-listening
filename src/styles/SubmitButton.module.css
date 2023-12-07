@@ -1,0 +1,9 @@
+.submitButton {
+    border: none;
+    background-color: inherit;
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}

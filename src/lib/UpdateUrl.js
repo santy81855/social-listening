@@ -1,10 +1,5 @@
 // function to take in keylist as well as a list of values to change and return a new url
 const UpdateUrl = (keyList, keyValues) => {
-    console.log("keyList = " + JSON.stringify(keyList));
-    console.log("values = ");
-    keyValues.forEach((keyValue) => {
-        console.log(keyValue);
-    });
     keyValues.forEach((keyValue) => {
         keyList[keyValue.key] = keyValue.value;
     });

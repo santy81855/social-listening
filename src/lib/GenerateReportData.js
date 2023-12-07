@@ -13,7 +13,6 @@ const generateReportData = (data) => {
     // get statistics for each hashtag
     const hashtagArray = [];
     hashtags.forEach((hashtag) => {
-        console.log(hashtag);
         let stats = {};
         stats.postCount = data.output.general.sentimentAnalysis[hashtag].socialDetails.postsCount;
         stats.likes = data.output.general.sentimentAnalysis[hashtag].socialDetails.likes;
@@ -43,7 +42,6 @@ const generateReportData = (data) => {
         fImageAnalysis.emotionsArray = data.output.facebook.imageAnalysis[hashtag].predominantEmotions;
         facebook.imageAnalysis = fImageAnalysis;
         let twitter = {};
-        console.log(data.output.twitter.sentimentAnalysis[hashtag]);
         twitter.postCount = data.output.twitter.sentimentAnalysis[hashtag].socialDetails.postsCount;
         twitter.retweets = data.output.twitter.sentimentAnalysis[hashtag].socialDetails.retweets;
         twitter.positive = data.output.twitter.sentimentAnalysis[hashtag].positive;
@@ -71,7 +69,6 @@ const generateReportData = (data) => {
         youtube.imageAnalysis = yImageAnalysis;
         hashtagArray.push({ generalStats: stats, hashtag: hashtag, imageStats: imageStats, facebook: facebook, twitter: twitter, youtube: youtube });
     });
-    console.log(hashtagArray);
     return hashtagArray;
 };
 

@@ -4,7 +4,10 @@ import { NextResponse } from "next/server";
 import crypto from 'crypto';
 
 export async function POST(request, res) {
-    const body = await request.json();
+    let body = await request.json();
+    // add a variable to the body
+    body.stateMachineArn = process.env.NEXT_PUBLIC_STATEMACHINEARN;
+
     // send request to start execution and return executionArn
     const result = await axios.post(process.env.NEXT_PUBLIC_STARTEXCUTION, body);
 

@@ -1,0 +1,15 @@
+.textInput {
+    outline: none;
+    border: none;
+    font-size: var(--font-size-medium);
+    background-color: transparent;
+    width: 100%;
+    min-width: 300px;
+}
+
+@media (max-width: 889px) {
+    .textInput {
+        min-width: 0;
+        font-size: var(--font-size-small);
+    }
+}

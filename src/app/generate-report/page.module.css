@@ -7,6 +7,8 @@
     height: calc(100% - var(--nav-height));
     overflow-y: auto;
     max-width: var(--max-width);
+    padding-inline: var(--padding-inline-medium);
+    padding-block: var(--padding-block-medium);
 }
 
 .section {
