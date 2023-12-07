@@ -50,7 +50,7 @@ const InputSection = ({ userInput }) => {
             axios.get(`/api/check-results?executionArn=${executionArn}`)
                 .then((response) => {
                     if (response.data.status == 'SUCCEEDED') {
-                        const newUrl = UpdateUrl(getKeys(), [{ key: "status", value: "SUCCESS" }]);
+                        const newUrl = UpdateUrl(getKeys(), [{ key: "status", value: "SUCCESS" }, { key: "executionArn", value: executionArn }]);
                         router.push(newUrl);
                         setAppState({ ...appState, output: response.data, reportData: generateReportData(response.data), status: 'SUCCESS' });
                         // Clear interval when SUCCEEDED

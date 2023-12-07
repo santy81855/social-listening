@@ -4,7 +4,6 @@ import { NextResponse, nextRequest } from "next/server";
 import crypto from 'crypto';
 
 export async function GET(request, res) {
-
     // get the executionArn from the url
     const searchParams = request.nextUrl.searchParams;
     // get the executionArn from the url

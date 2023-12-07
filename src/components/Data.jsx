@@ -1,17 +1,15 @@
-'use client';
 import styles from '../styles/Data.module.css';
-import { useAppContext } from '../app/providers';
-import { useRouter, useSearchParams } from "next/navigation";
+import generateReportData from '../lib/GenerateReportData';
+import axios from 'axios';
 
-const Data = () => {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const { appState, setAppState } = useAppContext();
+
+export default async function Data({ executionArn }) {
+    const res = await axios.get(`http://localhost:3000/api/check-results?executionArn=${executionArn}`);
+    const reportData = await res.data;
     return (
         <section className={styles.main}>
-            <p>{JSON.stringify(appState.reportData)}</p>
+            <p>{JSON.stringify(generateReportData(reportData))}</p>
         </section>
     );
 };
 
-export default Data;
