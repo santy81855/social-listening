@@ -5,7 +5,7 @@ import { parseCheckState } from '@/lib/ParseCheckState';
 
 // server action to get report data
 export async function getReportData(executionArn) {
-    const res = await axios.get(`http://localhost:3000/api/check-results?executionArn=${executionArn}`);
+    const res = await axios.get(`${process.env.HOST_NAME}/api/check-results?executionArn=${executionArn}`);
     const reportData = await res.data;
     return generateReportData(reportData);
 }
@@ -37,7 +37,7 @@ export async function submitPressed(formData, keys) {
             },
         }
     };
-    const res = await axios.post('http://localhost:3000/api/submit', body);
+    const res = await axios.post(`${process.env.HOST_NAME}/api/submit`, body);
     try {
         const executionArn = await res.data.executionArn;
         return executionArn;
