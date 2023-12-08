@@ -126,9 +126,9 @@
 
     .rowContainer {
         flex-direction: column;
-        gap: var(--gap-medium);
         padding-inline: 0;
-        padding-block-start: var(--padding-block-medium);
+        padding-block: 0;
+        gap: 0;
     }
 
     .textInputContainer {
@@ -136,7 +136,8 @@
         flex-direction: column;
         gap: var(--gap-small);
         padding-inline: var(--padding-inline-medium);
-        padding-block: 0;
+        padding-block: var(--padding-block-medium);
+        background-color: rgba(209, 209, 209, 0.1);
     }
 
     .checkboxContainer {
@@ -149,7 +150,7 @@
         flex-direction: column;
         gap: var(--gap-small);
         padding-inline: var(--padding-inline-medium);
-        padding-block: 0;
+        padding-block: var(--padding-block-medium);
     }
 
     .label {

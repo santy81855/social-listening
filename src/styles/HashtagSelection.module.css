@@ -1,5 +1,5 @@
 .hashtagContainer {
-    background-color: rgb(235, 242, 255);
+    background-color: rgba(173, 216, 230, 0.26);
     border-radius: var(--border-radius);
     padding-inline: var(--padding-inline-small);
     padding-block: var(--padding-block-small);

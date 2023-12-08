@@ -2,6 +2,7 @@
     border: none;
     font-size: var(--font-size-medium);
     width: 100%;
+    background-color: transparent;
 }
 
 @media (max-width: 360px) {

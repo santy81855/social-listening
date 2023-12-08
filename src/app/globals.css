@@ -50,24 +50,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-image: linear-gradient(
-        15deg,
-        hsl(240deg 61% 86%) 0%,
-        hsl(240deg 58% 90%) 7%,
-        hsl(240deg 54% 93%) 15%,
-        hsl(240deg 45% 96%) 22%,
-        hsl(240deg 26% 97%) 29%,
-        hsl(240deg 14% 97%) 36%,
-        hsl(240deg 6% 96%) 43%,
-        hsl(0deg 0% 96%) 50%,
-        hsl(0deg 0% 97%) 57%,
-        hsl(0deg 0% 98%) 65%,
-        hsl(0deg 0% 99%) 72%,
-        hsl(240deg 58% 98%) 79%,
-        hsl(240deg 59% 94%) 86%,
-        hsl(240deg 60% 90%) 93%,
-        hsl(240deg 61% 86%) 100%
-    );
+    background: linear-gradient(to bottom, lightblue, white);
 }
 
 a {
