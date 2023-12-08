@@ -5,12 +5,26 @@ import Data from '@components/input/Data';
 //import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Report({ searchParams }) {
-    return (
-        <section className={styles.sectionContainer}>
-            <p>ARN = {searchParams.executionArn}</p>
-            {searchParams.status === 'LOADING' && <LoadingClock />}
-            {searchParams.status === 'ERROR' && <p>Error generating the report.</p>}
-            {(searchParams.status === "SUCCESS" && searchParams.executionArn !== "" && searchParams.executionArn !== "undefined") && <Data executionArn={searchParams.executionArn} />}
-        </section>
-    );
+    if (searchParams.status === 'IDLE') {
+        return (
+            <p>No report to generate.</p>
+        );
+    }
+    if (searchParams.status === 'LOADING') {
+        return (
+            <LoadingClock />
+        );
+    }
+    if (searchParams.status === 'ERROR') {
+        return (
+            <p>Error generating the report.</p>
+        );
+    }
+    if (searchParams.status === "SUCCESS" && searchParams.hashtags !== "" && searchParams.hashtags !== 'undefined' && searchParams.executionArn !== "" && searchParams.executionArn !== "undefined") {
+        return (
+            <section className={styles.reportContainer}>
+                <Data executionArn={searchParams.executionArn} searchParams={searchParams} />
+            </section>
+        );
+    }
 }

@@ -1,7 +1,325 @@
-.main {
+/*define the grid for the mobile view, just columns in the right order*/
+.grid {
+    display: grid;
+    width: 100%;
+    gap: 20px;
+    grid-template-areas:
+        "hashtagContainer"
+        "dates"
+        "ranking"
+        "feelings"
+        "likes"
+        "images"
+        "facebook"
+        "twitter"
+        "youtube";
+}
+
+.gridItem {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding-inline: var(--padding-inline-medium);
+    padding-block: var(--padding-block-large);
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-medium);
+}
+
+.dates {
+    grid-area: dates;
+
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding-inline: var(--padding-inline-small);
+    padding-block: var(--padding-block-small);
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ranking {
+    grid-area: ranking;
+    font-size: var(--font-size-medium);
+    text-align: center;
+}
+
+.feelings {
+    grid-area: feelings;
+}
+
+.likes {
+    grid-area: likes;
+}
+
+.images {
+    grid-area: images;
+}
+
+.facebook {
+    grid-area: facebook;
+}
+
+.twitter {
+    grid-area: twitter;
+}
+
+.youtube {
+    grid-area: youtube;
+}
+
+.rankingTitle {
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+}
+
+.rankingContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-medium);
+    flex-wrap: wrap;
+}
+
+.chartContainer {
+    width: 170px;
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.legendContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.legendTitle {
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+}
+
+.legendItem {
+    display: flex;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    gap: 10px;
     width: 100%;
+}
+
+.legendColorPositive {
+    width: 10px;
+    height: 10px;
+    background-color: #0088fe;
+}
+
+.legendColorNegative {
+    width: 10px;
+    height: 10px;
+    background-color: #00c49f;
+}
+
+.legendColorNeutral {
+    width: 10px;
+    height: 10px;
+    background-color: #ffbb28;
+}
+
+.likesContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-medium);
+}
+
+.likesTitle {
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+    text-align: center;
+}
+
+.likesValue {
+    font-size: var(--font-size-large);
+    color: #0088fe;
+    font-weight: bold;
+}
+
+.datesContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.datesTitle {
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+    text-align: center;
+}
+
+.feelingsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-medium);
+    width: 100%;
+}
+
+.barChartContainer {
+    width: 100%;
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.barChartXTitle {
+    font-size: var(--font-size-small);
+    font-weight: bold;
+    text-align: center;
+}
+
+.legendColor5 {
+    width: 10px;
+    height: 10px;
+    background-color: #0088fe;
+}
+
+.legendColor4 {
+    width: 10px;
+    height: 10px;
+    background-color: #00c49f;
+}
+
+.legendColor3 {
+    width: 10px;
+    height: 10px;
+    background-color: #ffbb28;
+}
+
+.legendColor2 {
+    width: 10px;
+    height: 10px;
+    background-color: #ff8042;
+}
+
+.legendColor1 {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+}
+
+.barChartLegendContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.barChartLegendItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    font-size: var(--font-size-small);
+}
+
+.barChartTitleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #0088fe;
+    padding-inline: var(--padding-inline-medium);
+    padding-block: var(--padding-block-small);
+}
+
+.barChartTitle {
+    font-size: var(--font-size-small);
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+.barChartLegendName {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.radialChartContainer {
+    width: 100%;
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.imagesTitle {
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+    text-align: center;
+}
+
+@media (min-width: 500px) {
+    .grid {
+        grid-template-columns: 1fr 3fr;
+        grid-template-areas:
+            "hashtagContainer       hashtagContainer"
+            "dates                  dates"
+            "ranking                ranking"
+            "facebook               feelings"
+            "twitter                likes"
+            "youtube                images";
+    }
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+            "hashtagContainer       hashtagContainer    dates"
+            "ranking                ranking             likes"
+            "feelings               feelings            feelings"
+            "facebook               youtube             twitter"
+            "images                 images              twitter";
+    }
+
+    .feelingsContainer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .barChartContainer {
+        width: 60%;
+        height: 170px;
+    }
+
+    .barChartLegendContainer {
+        width: 40%;
+    }
 }

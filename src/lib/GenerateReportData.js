@@ -14,6 +14,9 @@ const generateReportData = (data) => {
     const hashtagArray = [];
     hashtags.forEach((hashtag) => {
         let stats = {};
+        stats.startDate = startDate;
+        stats.endDate = endDate;
+        stats.socialNetworks = socialNetworks;
         stats.postCount = data.output.general.sentimentAnalysis[hashtag].socialDetails.postsCount;
         stats.likes = data.output.general.sentimentAnalysis[hashtag].socialDetails.likes;
         stats.comments = data.output.general.sentimentAnalysis[hashtag].socialDetails.comments;

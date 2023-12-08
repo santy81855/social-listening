@@ -14,12 +14,12 @@ export default function Home({ searchParams }) {
         twitter: searchParams.twitter || true,
         youtube: searchParams.youtube || true,
         status: searchParams.status || "IDLE",
+        selectedHashtag: searchParams.selectedHashtag || "",
         executionArn: searchParams.executionArn || "",
     }
     const checkRedirect = () => {
-        if (!("hashtags" in searchParams) || !("startDate" in searchParams) || !("endDate" in searchParams) || !("facebook" in searchParams) || !("twitter" in searchParams) || !("youtube" in searchParams) || !("status" in searchParams) || !("executionArn" in searchParams)) {
-            console.log(searchParams);
-            redirect(`/generate-report?hashtags=${userInput.hashtags}&startDate=${userInput.startDate}&endDate=${userInput.endDate}&facebook=${userInput.facebook}&twitter=${userInput.twitter}&youtube=${userInput.youtube}&status=${userInput.status}&executionArn=${userInput.executionArn}`);
+        if (!("hashtags" in searchParams) || !("startDate" in searchParams) || !("endDate" in searchParams) || !("facebook" in searchParams) || !("twitter" in searchParams) || !("youtube" in searchParams) || !("status" in searchParams) || !("selectedHashtag" in searchParams) || !("executionArn" in searchParams)) {
+            redirect(`/generate-report?hashtags=${userInput.hashtags}&startDate=${userInput.startDate}&endDate=${userInput.endDate}&facebook=${userInput.facebook}&twitter=${userInput.twitter}&youtube=${userInput.youtube}&status=${userInput.status}&selectedHashtag=${userInput.selectedHashtag}&executionArn=${userInput.executionArn}`);
         }
     }
     checkRedirect();

@@ -19,13 +19,16 @@ const SubmitButton = ({ text }) => {
                 axios.get(`/api/check-results?executionArn=${executionArn}`)
                     .then((response) => {
                         if (response.data.status == 'SUCCEEDED') {
-                            console.log(status.data.get("hashtags"));
                             var keys = {};
                             for (const key of searchParams.keys()) {
                                 keys[key] = status.data.get(key);
                             }
-                            console.log(keys);
-                            const newUrl = UpdateUrl(keys, [{ key: "status", value: "SUCCESS" }, { key: "executionArn", value: executionArn }]);
+                            // get the first hashtag to preselect it
+                            let hashtags = keys.hashtags || "";
+                            const regex = /\b[^,]+/g;
+                            const matches = hashtags.match(regex);
+                            hashtags = matches || [];
+                            const newUrl = UpdateUrl(keys, [{ key: "status", value: "SUCCESS" }, { key: "selectedHashtag", value: hashtags[0] }, { key: "executionArn", value: executionArn }]);
                             router.push(newUrl);
                             // Clear interval when SUCCEEDED
                             clearInterval(interval);
@@ -44,7 +47,6 @@ const SubmitButton = ({ text }) => {
         }
         // if the form is completed then start the polling
         const getExecutionArn = async () => {
-            console.log(status.data.get("hashtags"));
             var keys = {};
             for (const key of searchParams.keys()) {
                 keys[key] = searchParams.get(key);
@@ -63,11 +65,29 @@ const SubmitButton = ({ text }) => {
         }
     }, [searchParams, status, router]);
 
-    return (
-        <button type="submit" className={styles.submitButton} disabled={status.pending}>
-            {status.pending ? "Loading..." : text}
-        </button>
-    );
+    const newReportClicked = () => {
+        var keys = {};
+        for (const key of searchParams.keys()) {
+            keys[key] = searchParams.get(key);
+        }
+        const newUrl = UpdateUrl(keys, [{ key: 'hashtags', value: "" }, { key: 'executionArn', value: "" }, { key: 'status', value: "IDLE" }]);
+        router.replace(newUrl);
+    };
+
+    if (searchParams.get("status") === "SUCCESS") {
+        return (
+            <button type="button" className={styles.submitButton} onClick={newReportClicked}>
+                Crear Nuevo Reporte
+            </button>
+        );
+    }
+    else {
+        return (
+            <button type="submit" className={styles.submitButton} disabled={status.pending}>
+                {status.pending ? "Loading..." : text}
+            </button>
+        );
+    }
 };
 
 export default SubmitButton;

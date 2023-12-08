@@ -1,0 +1,45 @@
+.hashtagContainer {
+    background-color: rgb(235, 242, 255);
+    border-radius: var(--border-radius);
+    padding-inline: var(--padding-inline-small);
+    padding-block: var(--padding-block-small);
+    /* inset box shadow*/
+    box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+    grid-area: hashtagContainer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    gap: var(--gap-small);
+    font-size: var(--font-size-small);
+    min-height: 60px;
+}
+
+.selectedHashtag {
+    background-color: white;
+    padding-block: var(--padding-block-small);
+    padding-inline: var(--padding-inline-medium);
+    border-radius: var(--border-radius);
+    display: flex;
+    min-width: 80px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.unselectedHashtag {
+    flex-grow: 1;
+    padding-block: var(--padding-block-small);
+    padding-inline: var(--padding-inline-small);
+    border-radius: var(--border-radius);
+    display: flex;
+    min-width: 80px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: rgb(116, 116, 116);
+    height: 100%;
+}

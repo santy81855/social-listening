@@ -1,9 +1,8 @@
-.sectionContainer {
+.reportContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-inline: var(--padding-inline-medium);
     padding-block: var(--padding-block-medium);
     width: 100%;
 }
