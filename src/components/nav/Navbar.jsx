@@ -6,12 +6,15 @@ const Navbar = () => {
         <nav className={styles.navContainer}>
             <div className={styles.navItem}>
                 <Link href="/">
-                    <p>Home</p>
+                    <p className={styles.companyName}>ASResearch</p>
                 </Link>
             </div>
             <div className={styles.navItem}>
+                <Link href="/">
+                    <p className={styles.navLink}>Home</p>
+                </Link>
                 <Link href="/generate-report">
-                    <p>Generate Report</p>
+                    <p className={styles.reportButton}>Generate Report</p>
                 </Link>
             </div>
         </nav>
