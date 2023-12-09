@@ -1,18 +1,19 @@
 .main {
+    height: calc(100% - var(--nav-height));
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
-    height: calc(100% - var(--nav-height));
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .heroSection {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding-block: var(--padding-block-large);
     padding-inline: var(--padding-inline-large);
@@ -80,7 +81,7 @@
 
 .heroImageContainer {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     border-radius: 10px;
     min-width: 50%;
@@ -102,6 +103,7 @@
     flex-wrap: wrap;
     gap: var(--gap-large);
     padding-inline: var(--padding-inline-large);
+    padding-block-end: var(--padding-block-large);
 }
 
 .featuresCard {

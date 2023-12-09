@@ -81,10 +81,17 @@ const SubmitButton = ({ text }) => {
             </button>
         );
     }
+    else if (searchParams.get("status") === "LOADING") {
+        return (
+            <button type="button" className={styles.submitButton} onClick={() => { }}>
+                Cargando...
+            </button>
+        );
+    }
     else {
         return (
             <button type="submit" className={styles.submitButton} disabled={status.pending}>
-                {status.pending ? "Loading..." : text}
+                {status.pending ? "Cargando..." : text}
             </button>
         );
     }

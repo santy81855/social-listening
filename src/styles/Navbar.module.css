@@ -16,8 +16,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-inline: var(--padding-inline-xlarge);
-    background-color: rgba(52, 201, 182, 255);
+    padding-inline: var(--padding-inline-large);
     max-width: var(--max-width);
 }
 
