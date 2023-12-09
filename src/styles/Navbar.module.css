@@ -3,17 +3,28 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-inline: var(--padding-inline-xlarge);
+    background-color: rgba(52, 201, 182, 255);
+}
+
+.textContainer {
+    height: var(--nav-height);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding-inline: var(--padding-inline-xlarge);
-    border-bottom: 1px solid rgb(162, 208, 226);
+    background-color: rgba(52, 201, 182, 255);
     max-width: var(--max-width);
 }
 
 .companyName {
     font-size: var(--font-size-medium);
     font-weight: bold;
-    color: black;
+    color: white;
 }
 
 .navItem {
@@ -27,16 +38,17 @@
 .navLink {
     font-size: var(--font-size-small);
     font-weight: bold;
-    color: black;
+    color: white;
 }
 
 .reportButton {
-    background-color: rgb(71, 214, 219);
-    color: black;
+    background-color: white;
+    color: rgba(52, 201, 182, 255);
     font-weight: bold;
     border-radius: var(--border-radius);
     padding-inline: var(--padding-inline-small);
     padding-block: var(--padding-block-small);
     font-size: var(--font-size-small);
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
     border: none;
 }
