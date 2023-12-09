@@ -26,6 +26,7 @@ export default function Home({ searchParams }) {
 
     return (
         <main className={styles.main}>
+            <h1 className={styles.reportTitle}>Generar Reporte Social</h1>
             <section className={styles.section}>
                 <Form searchParams={searchParams} />
             </section>

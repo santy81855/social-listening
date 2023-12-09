@@ -53,7 +53,6 @@ export default async function Data({ executionArn, searchParams }) {
 
         return result;
     }, []);
-    console.log(curHashtagData.facebook);
     const postsCount = curHashtagData.generalStats.postCount;
     const likesCount = curHashtagData.generalStats.likes;
     let options = { year: '2-digit', month: 'short', day: '2-digit' };

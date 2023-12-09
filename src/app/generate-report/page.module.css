@@ -6,9 +6,28 @@
     width: 100%;
     height: calc(100% - var(--nav-height));
     overflow-y: auto;
-    max-width: var(--max-width);
     padding-inline: var(--padding-inline-medium);
     padding-block: var(--padding-block-medium);
+    position: relative;
+}
+
+.main::after {
+    content: "";
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: -120%;
+    left: -50%;
+    transform: rotate(-10deg);
+    background-color: rgba(52, 201, 182, 1);
+    z-index: -1;
+}
+
+.reportTitle {
+    font-size: var(--font-size-xlarge);
+    font-weight: bold;
+    text-align: center;
+    color: white;
 }
 
 .section {
@@ -17,4 +36,5 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    max-width: var(--max-width);
 }

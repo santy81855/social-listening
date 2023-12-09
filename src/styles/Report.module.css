@@ -11,3 +11,28 @@
     max-width: 100%;
     overflow-wrap: break-word;
 }
+
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-medium);
+    padding-block: var(--padding-block-large);
+}
+
+.idleSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--gap-medium);
+    padding-block: var(--padding-block-large);
+}
+
+.idleSection p {
+    font-size: var(--font-size-large);
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}

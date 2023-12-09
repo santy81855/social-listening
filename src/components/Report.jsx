@@ -7,17 +7,22 @@ import Data from '@components/input/Data';
 export default function Report({ searchParams }) {
     if (searchParams.status === 'IDLE') {
         return (
-            <p>No report to generate.</p>
+            <section className={styles.idleSection}>
+                <p>Sin reporte que generar.</p>
+            </section>
         );
     }
     if (searchParams.status === 'LOADING') {
         return (
-            <LoadingClock />
+            <section className={styles.loadingContainer}>
+                <p>Generando reporte...</p>
+                <LoadingClock />
+            </section>
         );
     }
     if (searchParams.status === 'ERROR') {
         return (
-            <p>Error generating the report.</p>
+            <p>Error al generar el reporte.</p>
         );
     }
     if (searchParams.status === "SUCCESS" && searchParams.hashtags !== "" && searchParams.hashtags !== 'undefined' && searchParams.executionArn !== "" && searchParams.executionArn !== "undefined") {

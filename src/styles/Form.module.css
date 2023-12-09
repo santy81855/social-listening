@@ -18,6 +18,8 @@
     gap: var(--gap-small);
     padding-inline-start: var(--padding-inline-medium);
     box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
 .textInputContainer {
@@ -61,7 +63,7 @@
     align-items: center;
     border-top-right-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
-    background-color: rgb(71, 214, 219);
+    background-color: rgb(255, 230, 0);
     width: 150px;
     cursor: pointer;
 }
@@ -92,7 +94,7 @@
     border-bottom-left-radius: 25px;
     box-shadow: 0px 25px 0px 0px white;
     transform: rotateY(180deg) translateX(25px) translateY(-3px);
-    z-index: -1;
+    z-index: 0;
 }
 
 .checkboxContainer::before {
@@ -107,7 +109,7 @@
     border-bottom-right-radius: 25px;
     box-shadow: 0px 25px 0px 0px white; /* This is where the magic happens! */
     transform: rotateY(180deg) translateX(-25px) translateY(-3px);
-    z-index: -1;
+    z-index: 0;
 }
 
 @media (max-width: 889px) {
