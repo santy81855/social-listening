@@ -27,7 +27,10 @@ export default function Home({ searchParams }) {
     return (
         <main className={styles.main}>
             <section className={styles.reportPageContainer}>
-                <h1 className={styles.reportTitle}>Generar Reporte Social</h1>
+                <section className={styles.reportTitleContainer}>
+                    <i className={`fa-solid fa-cloud ${styles.cloudIcon}`}></i>
+                    <h1 className={styles.reportTitle}>Generar Reporte Social</h1>
+                </section>
                 <section className={styles.section}>
                     <Form searchParams={searchParams} />
                 </section>

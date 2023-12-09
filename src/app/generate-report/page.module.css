@@ -50,3 +50,18 @@
     align-items: center;
     max-width: var(--max-width);
 }
+
+.cloudIcon {
+    color: white;
+    font-size: calc(var(--font-size-xlarge));
+    text-align: left;
+}
+
+.reportTitleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-small);
+    padding-block-start: var(--padding-block-large);
+}
